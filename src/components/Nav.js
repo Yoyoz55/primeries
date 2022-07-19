@@ -12,9 +12,11 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import { Icon } from '@mui/material';
 import { Link } from 'react-router-dom'
-
-const pages = ['Products', 'Pricing', 'Blog'];
+import SVG from 'react-inlinesvg';
+const pages = ['Home', 'Statistic'];
+const textPages = ['בית', 'סטיסטיקה']
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const ResponsiveAppBar = () => {
@@ -40,6 +42,7 @@ const ResponsiveAppBar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
+           
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
@@ -88,9 +91,9 @@ const ResponsiveAppBar = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
+              {pages.map((page, index) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography textAlign="center">{textPages[index]}</Typography>
                    <Link to={`/${page}`}                         style={{textDecoration: "none", color:"white"}}
 >
                    {page}
@@ -119,17 +122,18 @@ const ResponsiveAppBar = () => {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {pages.map((page, index) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                        <Link to={`/${page}`}
-                        style={{textDecoration: "none", color:"white"}}
-                        >
-                   {page}
-                   </Link>              </Button>
+                <Link to={`/${page}`}
+                    style={{textDecoration: "none", color:"white"}}
+                    >
+                    {textPages[index]}
+                </Link>              
+            </Button>
             ))}
           </Box>
 
