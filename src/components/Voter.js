@@ -5,6 +5,8 @@ import {
   CardActions,
   FormControlLabel,
   Switch,
+  Divider,
+  Box,
 } from "@material-ui/core";
 import { styled } from "@mui/material/styles";
 const CardStyled = styled(Card, { label: "cardStyled" })(({ theme }) => ({
@@ -17,26 +19,41 @@ const FormControlLabelStyled = styled(FormControlLabel, {
 })(({ theme }) => ({
   "&.MuiFormControlLabel-root": { color: "#3f51b5" },
 }));
+const DividerStyled = styled(Divider, { label: "cardStyled" })(({ theme }) => ({
+  margin: "15px",
+}));
 const Voter = (props) => {
   return (
     <CardStyled>
       <CardContent>
-        <Typography variant="h6" color="primary">
-          שם:
-        </Typography>
-        <Typography>{props.firstName}</Typography>
-        <Typography variant="h6" color="primary">
-          שם משפחה:
-        </Typography>
-        <Typography>{props.lastName}</Typography>
-        <Typography variant="h6" color="primary">
-          {" "}
-          תז:
-        </Typography>
-        <Typography>{props.id}</Typography>
+        <Box>
+          <Typography variant="h6" color="primary">
+            שם:
+          </Typography>
+          <Typography>{props.firstName}</Typography>
+        </Box>
+
+        <DividerStyled />
+        <Box>
+          <Typography variant="h6" color="primary">
+            שם משפחה:
+          </Typography>
+          <Typography>{props.lastName}</Typography>
+        </Box>
+
+        <DividerStyled />
+        <Box>
+          <Typography variant="h6" color="primary">
+            תז:
+          </Typography>
+          <Typography>{props.id}</Typography>
+        </Box>
+
+        <DividerStyled />
+
         <FormControlLabelStyled
           labelPlacement="top"
-          control={<Switch defaultChecked />}
+          control={<Switch defaultChecked checked={props.isVoted} />}
           label="הצביע"
         />
       </CardContent>
