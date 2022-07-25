@@ -1,7 +1,7 @@
-import { createTheme } from "@material-ui/core"
+import { createTheme } from "@material-ui/core";
 
 const theme = createTheme({
-    direction:"rtl"
-})
+  direction: "ltr",
+});
 
 export default theme;
