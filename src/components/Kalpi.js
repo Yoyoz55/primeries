@@ -4,11 +4,13 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { useSelector, useDispatch } from "react-redux";
 import { setVoterFound } from "../redux/voters";
 import { getVoterByID } from "../proxy/votersProxy";
+import Voter from "./Voter";
 
 const Kalpi = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const voterFoundSelector = useSelector((state) => state.voters.voterFound);
+  const { id, firstName, lastName, isVoted } = voterFoundSelector;
   console.log(voterFoundSelector);
   const handleClick = () => {
     setLoading(true);
@@ -41,7 +43,14 @@ const Kalpi = () => {
       </Box>
       <Box style={{ marginTop: 120 }}>
         {loading && <CircularProgress size={100} />}
-        {/* {!loading && <VoterEntry />} */}
+        {!loading && id && (
+          <Voter
+            id={id}
+            firstName={firstName}
+            lastName={lastName}
+            isVoted={isVoted}
+          />
+        )}
       </Box>
     </Box>
   );
