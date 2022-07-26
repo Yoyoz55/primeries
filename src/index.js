@@ -4,25 +4,23 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
-import { ThemeProvider } from "@material-ui/core";
-import theme from "./theme";
-import rtlPlugin from "stylis-plugin-rtl";
-import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
-import { prefixer } from "stylis";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import { Provider } from "react-redux";
+
+import { createTheme, ThemeProvider } from "@material-ui/core";
+import rtlPlugin from "stylis-plugin-rtl";
+import { prefixer } from "stylis";
+import { CacheProvider } from "@emotion/react";
+import CssBaseline from "@material-ui/core/CssBaseline";
+
+import createCache from "@emotion/cache";
 import store from "./redux/store";
+import theme from "./theme";
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const cacheRtl = createCache({
   key: "muirtl",
-  // prefixer is the only stylis plugin by default, so when
-  // overriding the plugins you need to include it explicitly
-  // if you want to retain the auto-prefixing behavior.
   stylisPlugins: [prefixer, rtlPlugin],
 });
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <CacheProvider value={cacheRtl}>

@@ -1,7 +1,8 @@
-import { createTheme } from "@material-ui/core";
+import { createTheme, responsiveFontSizes } from "@material-ui/core";
 
-const theme = createTheme({
-  direction: "ltr",
+let theme = createTheme({
+  direction: "rtl",
 });
+theme = responsiveFontSizes(theme);
 
 export default theme;
