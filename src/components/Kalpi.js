@@ -27,7 +27,9 @@ const Kalpi = () => {
         setLoading(false);
       });
   };
-
+  const handleToggleVote = (e, voted) => {
+    console.log(e, voted);
+  };
   return (
     <Box>
       <Box>
@@ -50,6 +52,7 @@ const Kalpi = () => {
             firstName={firstName}
             lastName={lastName}
             isVoted={isVoted}
+            onToggleVote={handleToggleVote}
           />
         )}
       </Box>

@@ -7,24 +7,37 @@ import {
   Switch,
   Divider,
   Box,
-} from "@material-ui/core";
+} from "@mui/material";
+
 import { styled } from "@mui/material/styles";
 const CardStyled = styled(Card, { label: "cardStyled" })(({ theme }) => ({
-  width: "80%",
-  height: "70%",
   margin: "auto",
 }));
 const FormControlLabelStyled = styled(FormControlLabel, {
   label: "cardStyled",
 })(({ theme }) => ({
-  "&.MuiFormControlLabel-root": { color: "#3f51b5" },
+  "&.MuiFormControlLabel-root": { color: "#1976d2" },
 }));
 const DividerStyled = styled(Divider, { label: "cardStyled" })(({ theme }) => ({
   margin: "15px",
 }));
 const Voter = (props) => {
+  const handleChange = (e, voted) => {
+    props.onToggleVote(e, voted);
+  };
+
   return (
-    <CardStyled>
+    <CardStyled
+      sx={{
+        width: {
+          xs: "90%", // theme.breakpoints.up('xs')
+          sm: "60%", // theme.breakpoints.up('sm')
+          md: "60%", // theme.breakpoints.up('md')
+          lg: "40%", // theme.breakpoints.up('lg')
+          xl: "35%", // theme.breakpoints.up('xl')
+        },
+      }}
+    >
       <CardContent>
         <Box>
           <Typography variant="h6" color="primary">
@@ -53,7 +66,13 @@ const Voter = (props) => {
 
         <FormControlLabelStyled
           labelPlacement="top"
-          control={<Switch defaultChecked checked={props.isVoted} />}
+          control={
+            <Switch
+              defaultChecked
+              checked={props.isVoted}
+              onChange={handleChange}
+            />
+          }
           label="הצביע"
         />
       </CardContent>

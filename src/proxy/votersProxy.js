@@ -10,7 +10,7 @@ export const getVoterByID = (id) => {
           id: 317653875,
           firstName: "yoel",
           lastName: "zeitoun",
-          isVoted: false,
+          isVoted: true,
         };
         resolve(voter);
       }, 3000);
@@ -27,6 +27,29 @@ export const getVoterByID = (id) => {
         .catch((err) => {
           reject(err);
         });
+    }
+  });
+};
+
+export const setVoteByID = (id, vote) => {
+  return new Promise((resolve, reject) => {
+    if (_isSimulatorMode) {
+      setTimeout(() => {
+        const voter = {
+          id: id,
+          vote: vote,
+        };
+        resolve(voter);
+      }, 3000);
+    } else {
+      axios({
+        method: "post",
+        url: "/setVote",
+        data: {
+          id: id,
+          vote: vote,
+        },
+      }).then((data) => {});
     }
   });
 };
