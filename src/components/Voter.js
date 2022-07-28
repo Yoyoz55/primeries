@@ -61,7 +61,7 @@ const Voter = (props) => {
         <DividerStyled />
         <Box>
           <Typography variant="h6" color="primary">
-            תז
+            ת"ז
           </Typography>
           <Typography>{props.id}</Typography>
         </Box>
