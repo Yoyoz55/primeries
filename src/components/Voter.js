@@ -17,7 +17,11 @@ const FormControlLabelStyled = styled(FormControlLabel, {
   label: "cardStyled",
 })(({ theme }) => ({
   "&.MuiFormControlLabel-root": { color: "#1976d2" },
+  "&.MuiFormControlLabel-root .MuiFormControlLabel-label ": {
+    fontSize: 22,
+  },
 }));
+
 const DividerStyled = styled(Divider, { label: "cardStyled" })(({ theme }) => ({
   margin: "15px",
 }));
@@ -41,7 +45,7 @@ const Voter = (props) => {
       <CardContent>
         <Box>
           <Typography variant="h6" color="primary">
-            שם:
+            שם
           </Typography>
           <Typography>{props.firstName}</Typography>
         </Box>
@@ -49,7 +53,7 @@ const Voter = (props) => {
         <DividerStyled />
         <Box>
           <Typography variant="h6" color="primary">
-            שם משפחה:
+            שם משפחה
           </Typography>
           <Typography>{props.lastName}</Typography>
         </Box>
@@ -57,7 +61,7 @@ const Voter = (props) => {
         <DividerStyled />
         <Box>
           <Typography variant="h6" color="primary">
-            תז:
+            תז
           </Typography>
           <Typography>{props.id}</Typography>
         </Box>
@@ -68,6 +72,7 @@ const Voter = (props) => {
           labelPlacement="top"
           control={
             <Switch
+              size="large"
               defaultChecked
               checked={props.isVoted}
               onChange={handleChange}

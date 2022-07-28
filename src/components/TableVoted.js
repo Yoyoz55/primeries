@@ -1,25 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { styled } from "@mui/material/styles";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import UnpublishedIcon from "@mui/icons-material/Unpublished";
+import { getAllDataVoters } from "../proxy/votersProxy";
 
 const DataGridStyled = styled(DataGrid, { label: "cardStyled" })(
   ({ theme }) => ({
     padding: "10px",
     margin: "10px",
-    "&.MuiDataGrid-root .MuiDataGrid-footerContainer": {
-      direction: "rtl ",
-    },
-    "& .MuiDataGrid-columnHeaders": {
-      direction: "ltr !important",
-    },
-    "& .MuiDataGrid-virtualScroller": {
-      direction: "ltr !important",
-    },
+
     "&.MuiDataGrid-root .MuiDataGrid-columnHeaderTitle": {
       fontWeight: "bold",
+    },
+
+    "&.MuiDataGrid-root .MuiDataGrid-columnHeaders": {
+      [theme.breakpoints.down("md")]: {
+        direction: "rtl",
+      },
+    },
+    "&.MuiDataGrid-root .MuiDataGrid-virtualScroller": {
+      [theme.breakpoints.down("md")]: {
+        direction: "rtl",
+      },
+    },
+    "&.MuiDataGrid-root .MuiDataGrid-footerContainer": {
+      direction: "rtl ",
     },
   })
 );
@@ -50,9 +57,9 @@ const columns = [
     editable: false,
     renderCell: (params) =>
       params.row.isVoted ? (
-        <CheckCircleIcon sx={{ color: "green" }} />
+        <CheckCircleIcon sx={{ color: "#2ECC40" }} />
       ) : (
-        <UnpublishedIcon sx={{ color: "red" }} />
+        <UnpublishedIcon sx={{ color: "#FF4136" }} />
       ),
     //valueGetter: (params) => `${params.row.isVoted ? "כן" : "לא"}`,
   },
@@ -67,87 +74,18 @@ const columns = [
   //   },
 ];
 
-const rows = [
-  {
-    id: 342456879,
-    lastName: "זיתון",
-    firstName: "יואל",
-    isVoted: false,
-    responsible: "מוטי",
-  },
-  {
-    id: 452456879,
-    lastName: "ויצמן",
-    firstName: "אבי",
-    isVoted: true,
-    responsible: "מוטי",
-  },
-  {
-    id: 152456834,
-    lastName: "עזריאל",
-    firstName: "אלעד",
-    isVoted: false,
-    responsible: "מוטי",
-  },
-  {
-    id: 654789147,
-    lastName: "מלכה",
-    firstName: "נאור",
-    isVoted: true,
-    responsible: "מוטי",
-  },
-  {
-    id: 852147563,
-    lastName: "חנונה",
-    firstName: "דרור",
-    isVoted: false,
-    responsible: "מוטי",
-  },
-  {
-    id: 147852369,
-    lastName: "גגכגכ",
-    firstName: "גכג",
-    isVoted: false,
-    responsible: "מוטי",
-  },
-  {
-    id: 951753852,
-    lastName: "גכגכ",
-    firstName: "כעכ",
-    isVoted: true,
-    responsible: "מוטי",
-  },
-  {
-    id: 159852365,
-    lastName: "עכיכ",
-    firstName: "דגד",
-    isVoted: false,
-    responsible: "מוטי",
-  },
-  {
-    id: 456654125,
-    lastName: "דגד",
-    firstName: "דגככ",
-    isVoted: false,
-    responsible: "מוטי",
-  },
-  {
-    id: 456234125,
-    lastName: "דגד",
-    firstName: "דגככ",
-    isVoted: false,
-    responsible: "מוטי",
-  },
-  {
-    id: 443654125,
-    lastName: "דגד",
-    firstName: "דגככ",
-    isVoted: false,
-    responsible: "מוטי",
-  },
-];
-
 export default function TableVoted() {
+  const [rows, setRows] = useState([]);
+
+  useEffect(() => {
+    let mounted = true;
+    getAllDataVoters().then((data) => {
+      if (mounted) {
+        setRows(data);
+      }
+    });
+    return () => (mounted = false);
+  }, []);
   return (
     <Box
       sx={{
@@ -163,6 +101,11 @@ export default function TableVoted() {
       }}
     >
       <DataGridStyled
+        sx={{
+          "& .MuiDataGrid-root .MuiDataGrid-columnsContainer": {
+            direction: "ltr",
+          },
+        }}
         rows={rows}
         columns={columns}
         pageSize={9}
