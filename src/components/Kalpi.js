@@ -54,7 +54,7 @@ const Kalpi = () => {
           style={{ marginLeft: "10px", marginBottom: "5px" }}
         />
         <Button onClick={handleClick} variant="contained" color="primary">
-          חיפוש
+          חיפושש
         </Button>
       </Box>
       <Box style={{ marginTop: 120 }}>
