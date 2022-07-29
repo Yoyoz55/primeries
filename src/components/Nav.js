@@ -94,7 +94,7 @@ const ResponsiveAppBar = () => {
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{textPages[index]}</Typography>
                   <Link
-                    to={`/${page}`}
+                    to={`primeries/${page}`}
                     style={{
                       textDecoration: "none",
                       color: "white",
@@ -133,7 +133,7 @@ const ResponsiveAppBar = () => {
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 <Link
-                  to={`/${page}`}
+                  to={`primeries/${page}`}
                   style={{
                     textDecoration: "none",
                     color: "white",

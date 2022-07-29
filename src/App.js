@@ -10,9 +10,9 @@ function App() {
     <div className="App">
       <Nav />
       <Routes>
-        <Route path="/Home" element={<Kalpi />} />
-        <Route path="/Table" element={<TableVoted />} />
-        <Route path="/Statistic" element={<StatisticVotes />} />
+        <Route path="primeries/Home" element={<Kalpi />} />
+        <Route path="primeries/Table" element={<TableVoted />} />
+        <Route path="primeries/Statistic" element={<StatisticVotes />} />
       </Routes>
     </div>
   );
