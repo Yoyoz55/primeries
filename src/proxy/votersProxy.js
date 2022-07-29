@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const _isSimulatorMode = true;
+const _isSimulatorMode = false;
 
 export const getVoterByID = (id) => {
   return new Promise((resolve, reject) => {
@@ -49,7 +49,7 @@ export const setVoteByID = (id, vote) => {
           id: id,
           vote: vote,
         },
-      }).then((data) => {});
+      }).then((data) => { });
     }
   });
 };
@@ -142,8 +142,14 @@ export const getAllDataVoters = () => {
       }, 100);
     } else {
       axios
-        .get("/allVoters", {
-          params: {},
+        .get('http://voter-app-dev.eu-central-1.elasticbeanstalk.com/persons/', {
+          params: {
+            skip: 0,
+            limit: 5
+          },
+          validateStatus: (status) => {
+            return true; // I'm always returning true, you may want to do it depending on the status received
+          },
         })
         .then((data) => {
           resolve(data);
