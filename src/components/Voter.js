@@ -47,7 +47,7 @@ const Voter = (props) => {
           <Typography variant="h6" color="primary">
             שם
           </Typography>
-          <Typography>{props.firstName}</Typography>
+          <Typography>{props.first_name}</Typography>
         </Box>
 
         <DividerStyled />
@@ -55,7 +55,7 @@ const Voter = (props) => {
           <Typography variant="h6" color="primary">
             שם משפחה
           </Typography>
-          <Typography>{props.lastName}</Typography>
+          <Typography>{props.last_name}</Typography>
         </Box>
 
         <DividerStyled />
@@ -63,7 +63,7 @@ const Voter = (props) => {
           <Typography variant="h6" color="primary">
             ת"ז
           </Typography>
-          <Typography>{props.id}</Typography>
+          <Typography>{props.tz}</Typography>
         </Box>
 
         <DividerStyled />
@@ -74,7 +74,7 @@ const Voter = (props) => {
             <Switch
               size="large"
               defaultChecked
-              checked={props.isVoted}
+              checked={props.voted}
               onChange={handleChange}
             />
           }

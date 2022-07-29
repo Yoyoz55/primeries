@@ -13,7 +13,7 @@ const StatisticVotes = () => {
       backgroundColor: ["#2ECC40", "#FF4136"],
     },
   ];
-  //style={{ width: "35%", margin: "auto", height: "300px" }}
+
   return (
     <Box
       sx={{

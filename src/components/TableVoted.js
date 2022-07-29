@@ -30,38 +30,45 @@ const DataGridStyled = styled(DataGrid, { label: "cardStyled" })(
     },
   })
 );
+
 const columns = [
-  { field: "id", headerName: 'ת"ז', width: 120 },
+  { field: "tz", headerName: 'ת"ז', width: 120 },
   {
-    field: "firstName",
+    field: "first_name",
     headerName: "שם פרטי",
     width: 150,
     editable: false,
   },
   {
-    field: "lastName",
+    field: "last_name",
     headerName: "שם משפחה",
     width: 150,
     editable: false,
   },
   {
-    field: "responsible",
-    headerName: "אחראי",
+    field: "phone",
+    headerName: "טלפון",
     width: 150,
     editable: false,
   },
   {
-    field: "isVoted",
+    field: "voted",
     headerName: "הצביע",
     width: 150,
     editable: false,
     renderCell: (params) =>
-      params.row.isVoted ? (
+      params.row.voted ? (
         <CheckCircleIcon sx={{ color: "#2ECC40" }} />
       ) : (
-        <UnpublishedIcon sx={{ color: "#FF4136" }} />
-      ),
+          <UnpublishedIcon sx={{ color: "#FF4136" }} />
+        ),
     //valueGetter: (params) => `${params.row.isVoted ? "כן" : "לא"}`,
+  },
+  {
+    field: "owner_name",
+    headerName: "אחראי",
+    width: 150,
+    editable: false,
   },
   //   {
   //     field: "fullName",
@@ -77,15 +84,29 @@ const columns = [
 export default function TableVoted() {
   const [rows, setRows] = useState([]);
 
+  // useEffect(() => {
+  //   let mounted = true;
+  //   getAllDataVoters().then((data) => {
+  //     if (mounted) {
+  //       setRows(data);
+  //     }
+  //   });
+  //   return () => (mounted = false);
+  // }, []);
   useEffect(() => {
-    let mounted = true;
     getAllDataVoters().then((data) => {
-      if (mounted) {
-        setRows(data);
-      }
+      setRows(data);
+
     });
-    return () => (mounted = false);
+    const interval = setInterval(() => {
+      console.log('This will run every second!');
+      getAllDataVoters().then((data) => {
+        setRows(data);
+      });
+    }, 60000);
+    return () => clearInterval(interval);
   }, []);
+
   return (
     <Box
       sx={{
