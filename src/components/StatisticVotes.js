@@ -1,18 +1,38 @@
 import { Pie } from "react-chartjs-2";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Chart, ArcElement, Legend, Tooltip, Title } from "chart.js";
 import { Box } from "@mui/material";
+import { getStatisticVote } from "../proxy/votersProxy"
 
 Chart.register(ArcElement, Legend, Title, Tooltip);
 
 const StatisticVotes = () => {
   const labels = ["הצביעו", "לא הצביעו"];
+
+  const [dataStatistic, setDataStatistic] = useState({});
+  const { voted, not_voted, percentage } = dataStatistic;
+
   const datasets = [
     {
-      data: [40, 60],
+      data: [voted, not_voted],
       backgroundColor: ["#2ECC40", "#FF4136"],
     },
   ];
+  console.log(dataStatistic)
+  useEffect(() => {
+    getStatisticVote().then((data) => {
+      setDataStatistic(data);
+
+    });
+    const interval = setInterval(() => {
+      console.log('This will run every second!');
+      getStatisticVote().then((data) => {
+        setDataStatistic(data);
+      });
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
 
   return (
     <Box

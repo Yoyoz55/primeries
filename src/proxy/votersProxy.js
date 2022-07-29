@@ -81,3 +81,31 @@ export const getAllDataVoters = () => {
     }
   });
 };
+
+export const getStatisticVote = () => {
+  return new Promise((resolve, reject) => {
+    if (_isSimulatorMode) {
+      setTimeout(() => {
+        const stats = {
+          voted: "500",
+          not_voted: "1000",
+          percentage: "33.33"
+        }
+        resolve(stats);
+      }, 100);
+    } else {
+      axios
+        .get('http://voter-app-dev.eu-central-1.elasticbeanstalk.com/admin/stats', {
+          validateStatus: (status) => {
+            return true; // I'm always returning true, you may want to do it depending on the status received
+          },
+        })
+        .then((data) => {
+          resolve(data.data);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    }
+  });
+};
