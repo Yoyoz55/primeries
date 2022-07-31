@@ -15,11 +15,23 @@ import AdbIcon from "@mui/icons-material/Adb";
 import { Icon } from "@mui/material";
 import { Link } from "react-router-dom";
 import SVG from "react-inlinesvg";
-const pages = ["Home", "Table", "Statistic"];
-const textPages = ["בית", "טבלה", "סטיסטיקה"];
+import { useSelector, useDispatch } from "react-redux";
+
+import { PERMISSION } from "../Enum";
+
+const pages = ["kalpi", "Table", "Statistic", "StatisticUsers"];
+const textPages = [
+  "חיפוש מצביע",
+  "טבלה",
+  "סטטיסטיקת הצבעה",
+  "סטטיסטיקת אחראים",
+];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const ResponsiveAppBar = () => {
+  const isLoggedIn = useSelector((state) => state.voters.isLoggedIn);
+  const permission = useSelector((state) => state.voters.permission);
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -37,9 +49,20 @@ const ResponsiveAppBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
+  const isManager = () => PERMISSION.MANAGER === permission;
   return (
-    <AppBar position="static" sx={{ marginBottom: 7 }}>
+    <AppBar
+      position="static"
+      sx={{
+        marginBottom: {
+          xs: 5, // theme.breakpoints.up('xs')
+          sm: 5, // theme.breakpoints.up('sm')
+          md: 6, // theme.breakpoints.up('md')
+          lg: 7, // theme.breakpoints.up('lg')
+          xl: 7, // theme.breakpoints.up('xl')
+        },
+      }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
@@ -61,51 +84,56 @@ const ResponsiveAppBar = () => {
             המצביעון
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {pages.map((page, index) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{textPages[index]}</Typography>
-                  <Link
-                    to={`primeries/${page}`}
-                    style={{
-                      textDecoration: "none",
-                      color: "white",
-                    }}
-                  >
-                    {page}
-                  </Link>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+          {isManager() && (
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: "block", md: "none" },
+                }}
+              >
+                {pages.map((page, index) => (
+                  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">
+                      {textPages[index]}
+                    </Typography>
+                    <Link
+                      to={`/${page}`}
+                      style={{
+                        textDecoration: "none",
+                        color: "white",
+                      }}
+                    >
+                      {page}
+                    </Link>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          )}
           <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
@@ -125,27 +153,30 @@ const ResponsiveAppBar = () => {
           >
             המצביעון
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page, index) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                <Link
-                  to={`primeries/${page}`}
-                  style={{
-                    textDecoration: "none",
-                    color: "white",
-                    padding: 10,
-                    fontSize: 17,
-                  }}
+
+          {isManager() && (
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              {pages.map((page, index) => (
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
                 >
-                  {textPages[index]}
-                </Link>
-              </Button>
-            ))}
-          </Box>
+                  <Link
+                    to={`/${page}`}
+                    style={{
+                      textDecoration: "none",
+                      color: "white",
+                      padding: 10,
+                      fontSize: 17,
+                    }}
+                  >
+                    {textPages[index]}
+                  </Link>
+                </Button>
+              ))}
+            </Box>
+          )}
 
           {/* <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">

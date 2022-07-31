@@ -22,10 +22,20 @@ export const votersSlice = createSlice({
       const voterFound = action.payload;
       state.voterFound = voterFound;
     },
+    setLogin: (state, action) => {
+      const data = action.payload;
+      const isLoggedIn = data.log;
+      const permission = data.perm;
+      state.isLoggedIn = isLoggedIn;
+      state.permission = permission;
+      if (data.phoneNumber) {
+        state.phoneNumber = data.phoneNumber;
+      }
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setVoterFound } = votersSlice.actions;
+export const { setVoterFound, setLogin } = votersSlice.actions;
 
 export default votersSlice.reducer;

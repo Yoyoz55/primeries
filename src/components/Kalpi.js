@@ -18,7 +18,7 @@ const Kalpi = () => {
     setLoading(true);
     getVoterByID(selectedId)
       .then((data) => {
-        console.log('here', data)
+        console.log("here", data);
         dispatch(setVoterFound(data));
       })
       .catch((e) => {
@@ -32,15 +32,15 @@ const Kalpi = () => {
     console.log(e, voted);
     setVoteByID(tz, voted).then((data) => {
       if (data) {
-        console.log('here in setVoteById');
-        dispatch(setVoterFound({ ...voterFoundSelector, voted: voted }))
+        console.log("here in setVoteById");
+        dispatch(setVoterFound({ ...voterFoundSelector, voted: voted }));
       }
-    })
+    });
   };
-  const handleIdChange = (e, ) => {
+  const handleIdChange = (e) => {
     const id = e.target.value;
-    setSelectedId(id)
-  }
+    setSelectedId(id);
+  };
   return (
     <Box>
       <Box>
@@ -54,7 +54,7 @@ const Kalpi = () => {
           style={{ marginLeft: "10px", marginBottom: "5px" }}
         />
         <Button onClick={handleClick} variant="contained" color="primary">
-          חיפושש
+          חיפוש
         </Button>
       </Box>
       <Box style={{ marginTop: 120 }}>
