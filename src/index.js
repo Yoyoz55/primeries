@@ -26,11 +26,11 @@ root.render(
     <CacheProvider value={cacheRtl}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <BrowserRouter>
+        <HashRouter>
           <Provider store={store}>
             <App />
           </Provider>
-        </BrowserRouter>
+        </HashRouter>
       </ThemeProvider>
     </CacheProvider>
   </React.StrictMode>

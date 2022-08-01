@@ -17,7 +17,7 @@ export const getVoterByID = (id) => {
     } else {
       axios
         .get(
-          `http://voter-app-dev.eu-central-1.elasticbeanstalk.com/persons/${id}`,
+          `https://voter-app-dev.eu-central-1.elasticbeanstalk.com/persons/${id}`,
           {}
         )
         .then((data) => {
@@ -43,7 +43,7 @@ export const setVoteByID = (tz, vote) => {
     } else {
       axios({
         method: "post",
-        url: "http://voter-app-dev.eu-central-1.elasticbeanstalk.com/persons/",
+        url: "https://voter-app-dev.eu-central-1.elasticbeanstalk.com/persons/",
         data: {
           tz: tz,
           voted: vote,
@@ -116,7 +116,7 @@ export const getAllDataVoters = () => {
     } else {
       axios
         .get(
-          "http://voter-app-dev.eu-central-1.elasticbeanstalk.com/persons/",
+          "https://voter-app-dev.eu-central-1.elasticbeanstalk.com/persons/",
           {
             params: {
               skip: 0,
@@ -287,7 +287,7 @@ export const getVotersOfUsers = (phoneNumber) => {
     } else {
       axios
         .get(
-          `http://voter-app-dev.eu-central-1.elasticbeanstalk.com/users/${phoneNumber}/persons`,
+          `https://voter-app-dev.eu-central-1.elasticbeanstalk.com/users/${phoneNumber}/persons`,
           {
             params: {},
             validateStatus: (status) => {
@@ -320,7 +320,7 @@ export const getVotersStats = (phoneNumber) => {
     } else {
       axios
         .get(
-          `http://voter-app-dev.eu-central-1.elasticbeanstalk.com/users/${phoneNumber}/stats`,
+          `https://voter-app-dev.eu-central-1.elasticbeanstalk.com/users/${phoneNumber}/stats`,
           {
             params: {},
             validateStatus: (status) => {
@@ -352,7 +352,7 @@ export const getStatisticVote = () => {
     } else {
       axios
         .get(
-          "http://voter-app-dev.eu-central-1.elasticbeanstalk.com/admin/stats",
+          "https://voter-app-dev.eu-central-1.elasticbeanstalk.com/admin/stats",
           {
             validateStatus: (status) => {
               return true; // I'm always returning true, you may want to do it depending on the status received
@@ -410,7 +410,7 @@ export const getStatisticOfAllUsers = () => {
     } else {
       axios
         .get(
-          "http://voter-app-dev.eu-central-1.elasticbeanstalk.com/admin/user_stats",
+          "https://voter-app-dev.eu-central-1.elasticbeanstalk.com/admin/user_stats",
           {
             validateStatus: (status) => {
               return true; // I'm always returning true, you may want to do it depending on the status received
