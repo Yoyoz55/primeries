@@ -10,7 +10,6 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { faker } from "@faker-js/faker";
 import { Bar } from "react-chartjs-2";
 import { getStatisticOfAllUsers } from "../proxy/votersProxy";
 
