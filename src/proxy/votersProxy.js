@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const _isSimulatorMode = true;
+const _isSimulatorMode = false;
 
 export const getVoterByID = (id) => {
   return new Promise((resolve, reject) => {
