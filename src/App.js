@@ -59,6 +59,8 @@ function App() {
         >
           <Route exact path="/StatisticUsers" element={<StatisticUsers />} />
         </Route>
+        <Route element={<Login />} />
+        <Route path="/*" element={<Login />} />
       </Routes>
     </div>
   );
