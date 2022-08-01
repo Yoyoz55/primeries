@@ -120,7 +120,7 @@ export const getAllDataVoters = () => {
           {
             params: {
               skip: 0,
-              limit: 100,
+              limit: 5000,
             },
             validateStatus: (status) => {
               return true; // I'm always returning true, you may want to do it depending on the status received

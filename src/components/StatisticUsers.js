@@ -40,7 +40,15 @@ export const options = {
   },
   plugins: {
     legend: {
-      position: "top",
+      display: false,
+      position: "bottom",
+      // labels: {
+      //   filter: function (legendItem, data) {
+      //     console.log('in filter', legendItem, data.datasets[0].data, legendItem.index)
+
+      //     return legendItem.index != 1
+      //   }
+      // }
     },
     title: {
       display: true,
@@ -52,122 +60,31 @@ const StatisticUsers = () => {
   const [dataStatistic, setDataStatistic] = useState([]);
   console.log("in statistic users", dataStatistic);
 
-  // const labels = [
-  //   "רוני",
-  //   "גשניא",
-  //   "כ",
-  //   "ש",
-  //   "קכגכגכ",
-  //   "קרקרקר",
-  //   "גכגכגכ",
-  //   "/שז",
-  //   "sdd",
-  //   "sd",
-  //   "sdf",
-  //   "sdsdsq",
-  //   "qwea",
-  //   "sdwev",
-  //   "jen",
-  //   "edqwq",
-  //   "dopolk",
-  //   "dfdf",
-  //   "poli",
-  //   "polu",
-  //   "poummm",
-  //   "ר1וני",
-  //   "ג2שניא",
-  //   "2כ",
-  //   "3ש",
-  //   "קכגכ4גכ",
-  //   "קרק5רקר",
-  //   "גכ6גכגכ",
-  //   "/7שז",
-  //   "sd8d",
-  //   "sd6",
-  //   "sd3f",
-  //   "s4dsdsq",
-  //   "qwe2a",
-  //   "sdw3ev",
-  //   "je4n",
-  //   "ed5qwq",
-  //   "do3polk",
-  //   "dfdf3",
-  //   "po2li",
-  //   "pol2u",
-  //   "pou3mmm",
-  // ];
 
-  // const dataToShowGood = labels.map(() =>
-  //   faker.datatype.number({ min: 51, max: 100 })
-  // );
-  // const dataToShowNotGood = labels.map(() =>
-  //   faker.datatype.number({ min: 0, max: 50 })
-  // );
-  // const data = {
-  //   labels,
-  //   datasets: [
-  //     {
-  //       label: "אחוז גבוה",
-  //       data: dataToShowGood,
-  //       backgroundColor: "#2ECC40",
-  //     },
-  //     {
-  //       label: "אחוז נמוך",
-  //       data: dataToShowNotGood,
-  //       backgroundColor: "#FF4136",
-  //     },
-  //   ],
-  // };
 
-  let dataGoodPercentage = [];
-  let dataBadPercentage = [];
+
+  let labelDataSet = [];
+  let percentageDataSet = [];
 
   dataStatistic.forEach((data) => {
     const percentage = parseFloat(data.percentage);
-    if (percentage > 50) {
-      dataGoodPercentage.push(data);
-    } else {
-      dataBadPercentage.push(data);
-    }
+    const name = data.owner_name
+
+    labelDataSet.push(name);
+    percentageDataSet.push(percentage)
   });
 
-  let labelGoodDataSet = [];
-  let percentageGoodDataSet = [];
-
-  dataGoodPercentage.forEach((data) => {
-    labelGoodDataSet.push(data.owner_name);
-    percentageGoodDataSet.push(parseFloat(data.percentage));
-  });
-  let labelBadDataSet = [];
-  let percentageBadDataSet = [];
-
-  dataBadPercentage.forEach((data) => {
-    labelBadDataSet.push(data.owner_name);
-    percentageBadDataSet.push(parseFloat(data.percentage));
-  });
-  console.log(percentageGoodDataSet, labelGoodDataSet);
-
-  const backgroundColors = [
-    ...percentageGoodDataSet,
-    ...percentageBadDataSet,
-  ].map((value) => {
+  const backgroundColors = percentageDataSet.map((value) => {
     return value > 50 ? "#2ECC40" : "#FF4136";
   });
   const data = {
-    labels: [...labelGoodDataSet, ...labelBadDataSet],
+    labels: labelDataSet,
     datasets: [
       {
-        label: "אחוז גבוה",
-        data: [...percentageGoodDataSet, ...percentageBadDataSet],
+        label: 'ww',
+        data: percentageDataSet,
         backgroundColor: backgroundColors,
-        //labels: labelGoodDataSet,
       },
-      // {
-      //   label: "אחוז נמוך",
-      //   data: percentageBadDataSet,
-      //   backgroundColor: "#FF4136",
-      //   //labels: labelBadDataSet,
-      // },
     ],
   };
 
