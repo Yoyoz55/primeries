@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Tooltip } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { styled } from "@mui/material/styles";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -66,6 +66,11 @@ const columns = [
     headerName: "טלפון",
     flex: 1,
     editable: false,
+    renderCell: (params) => (
+      <Tooltip title={params.row.phone} enterTouchDelay={0}>
+        <span className="table-cell-trucate">{params.row.phone}</span>
+      </Tooltip>
+    ),
   },
   {
     disableColumnMenu: true,
@@ -146,10 +151,17 @@ export default function TableUser() {
           }}
           rows={rows}
           columns={columns}
-          pageSize={8}
-          rowsPerPageOptions={[8]}
+          // pageSize={8}
+          // rowsPerPageOptions={[8]}
           checkboxSelection={false}
           disableSelectionOnClick={true}
+          onCellClick={(params, event) => {
+            if (params.field == "phone") {
+              event.defaultMuiPrevented = true;
+              console.log("on cell click", params.row.phone);
+              //window.open("tel:900300400");
+            }
+          }}
         />
       </Box>
     </Box>

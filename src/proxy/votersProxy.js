@@ -166,7 +166,7 @@ export const getVotersOfUsers = (phoneNumber) => {
             last_name: "אבבאו",
             tz: "319530580",
             address: 'הפלמ"ח 1/10',
-            phone: "_+97288536123",
+            phone: "_+97288536123;_+97288536122",
             id: 3,
             owner_name: null,
             voted: false,

@@ -20,14 +20,20 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+
 export const options = {
   responsive: true,
   scaleShowValues: true,
+
   scales: {
     x: {
       ticks: {
         autoSkip: false,
       },
+    },
+    y: {
+      min: 0,
+      max: 100,
     },
   },
   plugins: {
@@ -89,13 +95,30 @@ const StatisticUsers = () => {
   const [dataStatistic, setDataStatistic] = useState({});
   const { voted, not_voted, percentage } = dataStatistic;
 
+  // const dataToShow = labels.map(() =>
+  //   faker.datatype.number({ min: 0, max: 100 })
+  // );
+  // const backgroundColors = dataToShow.map((value) => {
+  //   return value > 50 ? "#2ECC40" : "#FF4136";
+  // });
+  const dataToShowGood = labels.map(() =>
+    faker.datatype.number({ min: 51, max: 100 })
+  );
+  const dataToShowNotGood = labels.map(() =>
+    faker.datatype.number({ min: 0, max: 50 })
+  );
   const data = {
     labels,
     datasets: [
       {
-        label: "אחוז הצבעה",
-        data: labels.map(() => faker.datatype.number({ min: 0, max: 100 })),
+        label: "אחוז גבוה",
+        data: dataToShowGood,
         backgroundColor: "#2ECC40",
+      },
+      {
+        label: "אחוז נמוך",
+        data: dataToShowNotGood,
+        backgroundColor: "#FF4136",
       },
     ],
   };
