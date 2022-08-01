@@ -12,6 +12,8 @@ import {
 } from "chart.js";
 import { faker } from "@faker-js/faker";
 import { Bar } from "react-chartjs-2";
+import { getStatisticOfAllUsers } from "../proxy/votersProxy";
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -47,94 +49,140 @@ export const options = {
   },
 };
 const StatisticUsers = () => {
-  const labels = [
-    "רוני",
-    "גשניא",
-    "כ",
-    "ש",
-    "קכגכגכ",
-    "קרקרקר",
-    "גכגכגכ",
-    "/שז",
-    "sdd",
-    "sd",
-    "sdf",
-    "sdsdsq",
-    "qwea",
-    "sdwev",
-    "jen",
-    "edqwq",
-    "dopolk",
-    "dfdf",
-    "poli",
-    "polu",
-    "poummm",
-    "ר1וני",
-    "ג2שניא",
-    "2כ",
-    "3ש",
-    "קכגכ4גכ",
-    "קרק5רקר",
-    "גכ6גכגכ",
-    "/7שז",
-    "sd8d",
-    "sd6",
-    "sd3f",
-    "s4dsdsq",
-    "qwe2a",
-    "sdw3ev",
-    "je4n",
-    "ed5qwq",
-    "do3polk",
-    "dfdf3",
-    "po2li",
-    "pol2u",
-    "pou3mmm",
-  ];
+  const [dataStatistic, setDataStatistic] = useState([]);
+  console.log("in statistic users", dataStatistic);
 
-  const [dataStatistic, setDataStatistic] = useState({});
-  const { voted, not_voted, percentage } = dataStatistic;
+  // const labels = [
+  //   "רוני",
+  //   "גשניא",
+  //   "כ",
+  //   "ש",
+  //   "קכגכגכ",
+  //   "קרקרקר",
+  //   "גכגכגכ",
+  //   "/שז",
+  //   "sdd",
+  //   "sd",
+  //   "sdf",
+  //   "sdsdsq",
+  //   "qwea",
+  //   "sdwev",
+  //   "jen",
+  //   "edqwq",
+  //   "dopolk",
+  //   "dfdf",
+  //   "poli",
+  //   "polu",
+  //   "poummm",
+  //   "ר1וני",
+  //   "ג2שניא",
+  //   "2כ",
+  //   "3ש",
+  //   "קכגכ4גכ",
+  //   "קרק5רקר",
+  //   "גכ6גכגכ",
+  //   "/7שז",
+  //   "sd8d",
+  //   "sd6",
+  //   "sd3f",
+  //   "s4dsdsq",
+  //   "qwe2a",
+  //   "sdw3ev",
+  //   "je4n",
+  //   "ed5qwq",
+  //   "do3polk",
+  //   "dfdf3",
+  //   "po2li",
+  //   "pol2u",
+  //   "pou3mmm",
+  // ];
 
-  // const dataToShow = labels.map(() =>
-  //   faker.datatype.number({ min: 0, max: 100 })
+  // const dataToShowGood = labels.map(() =>
+  //   faker.datatype.number({ min: 51, max: 100 })
   // );
-  // const backgroundColors = dataToShow.map((value) => {
-  //   return value > 50 ? "#2ECC40" : "#FF4136";
-  // });
-  const dataToShowGood = labels.map(() =>
-    faker.datatype.number({ min: 51, max: 100 })
-  );
-  const dataToShowNotGood = labels.map(() =>
-    faker.datatype.number({ min: 0, max: 50 })
-  );
+  // const dataToShowNotGood = labels.map(() =>
+  //   faker.datatype.number({ min: 0, max: 50 })
+  // );
+  // const data = {
+  //   labels,
+  //   datasets: [
+  //     {
+  //       label: "אחוז גבוה",
+  //       data: dataToShowGood,
+  //       backgroundColor: "#2ECC40",
+  //     },
+  //     {
+  //       label: "אחוז נמוך",
+  //       data: dataToShowNotGood,
+  //       backgroundColor: "#FF4136",
+  //     },
+  //   ],
+  // };
+
+  let dataGoodPercentage = [];
+  let dataBadPercentage = [];
+
+  dataStatistic.forEach((data) => {
+    const percentage = parseFloat(data.percentage);
+    if (percentage > 50) {
+      dataGoodPercentage.push(data);
+    } else {
+      dataBadPercentage.push(data);
+    }
+  });
+
+  let labelGoodDataSet = [];
+  let percentageGoodDataSet = [];
+
+  dataGoodPercentage.forEach((data) => {
+    labelGoodDataSet.push(data.owner_name);
+    percentageGoodDataSet.push(parseFloat(data.percentage));
+  });
+  let labelBadDataSet = [];
+  let percentageBadDataSet = [];
+
+  dataBadPercentage.forEach((data) => {
+    labelBadDataSet.push(data.owner_name);
+    percentageBadDataSet.push(parseFloat(data.percentage));
+  });
+  console.log(percentageGoodDataSet, labelGoodDataSet);
+
+  const backgroundColors = [
+    ...percentageGoodDataSet,
+    ...percentageBadDataSet,
+  ].map((value) => {
+    return value > 50 ? "#2ECC40" : "#FF4136";
+  });
   const data = {
-    labels,
+    labels: [...labelGoodDataSet, ...labelBadDataSet],
     datasets: [
       {
         label: "אחוז גבוה",
-        data: dataToShowGood,
-        backgroundColor: "#2ECC40",
+        data: [...percentageGoodDataSet, ...percentageBadDataSet],
+        backgroundColor: backgroundColors,
+        //labels: labelGoodDataSet,
       },
-      {
-        label: "אחוז נמוך",
-        data: dataToShowNotGood,
-        backgroundColor: "#FF4136",
-      },
+      // {
+      //   label: "אחוז נמוך",
+      //   data: percentageBadDataSet,
+      //   backgroundColor: "#FF4136",
+      //   //labels: labelBadDataSet,
+      // },
     ],
   };
-  console.log(dataStatistic);
-  //   useEffect(() => {
-  //     getStatisticVote().then((data) => {
-  //       setDataStatistic(data);
-  //     });
-  //     const interval = setInterval(() => {
-  //       console.log("This will run every second!");
-  //       getStatisticVote().then((data) => {
-  //         setDataStatistic(data);
-  //       });
-  //     }, 5000);
-  //     return () => clearInterval(interval);
-  //   }, []);
+
+  useEffect(() => {
+    getStatisticOfAllUsers().then((data) => {
+      setDataStatistic(data);
+    });
+    const interval = setInterval(() => {
+      console.log("This will run every second!");
+      getStatisticOfAllUsers().then((data) => {
+        setDataStatistic(data);
+      });
+    }, 60000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <Box

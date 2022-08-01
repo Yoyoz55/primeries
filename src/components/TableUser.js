@@ -11,7 +11,7 @@ import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
 
-import { getVotersOfUsers } from "../proxy/votersProxy";
+import { getVotersOfUsers, getVotersStats } from "../proxy/votersProxy";
 import { useSelector, useDispatch } from "react-redux";
 
 const DataGridStyled = styled(DataGrid, { label: "cardStyled" })(
@@ -89,6 +89,8 @@ const columns = [
 
 export default function TableUser() {
   const [rows, setRows] = useState([]);
+  const [stats, setStats] = useState({});
+  console.log("stats", stats);
   const phoneUser = useSelector((state) => state.voters.phoneNumber);
 
   useEffect(() => {
@@ -99,6 +101,19 @@ export default function TableUser() {
       console.log("This will run every second!");
       getVotersOfUsers().then((data) => {
         setRows(data);
+      });
+    }, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    getVotersStats(phoneUser).then((data) => {
+      setStats(data);
+    });
+    const interval = setInterval(() => {
+      console.log("This will run every second!");
+      getVotersStats().then((data) => {
+        setStats(data);
       });
     }, 60000);
     return () => clearInterval(interval);
@@ -119,8 +134,12 @@ export default function TableUser() {
           marginBottom: 3,
         }}
       >
-        <BorderLinearProgress variant="determinate" value={50} />
-        <Typography>הציביעו סה"כ 20 מתוך 50</Typography>
+        <BorderLinearProgress variant="determinate" value={stats.percentage} />
+        <Typography>
+          {`הציביעו סה"כ ${stats.voted} מתוך ${
+            parseInt(stats.not_voted) + parseInt(stats.voted)
+          }`}
+        </Typography>
       </Box>
 
       <Box

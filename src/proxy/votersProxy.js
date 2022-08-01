@@ -305,6 +305,39 @@ export const getVotersOfUsers = (phoneNumber) => {
   });
 };
 
+export const getVotersStats = (phoneNumber) => {
+  return new Promise((resolve, reject) => {
+    if (_isSimulatorMode) {
+      setTimeout(() => {
+        const data = {
+          voted: "400",
+          not_voted: "200",
+          percentage: "75",
+          owner_name: phoneNumber,
+        };
+        resolve(data);
+      }, 100);
+    } else {
+      axios
+        .get(
+          `http://voter-app-dev.eu-central-1.elasticbeanstalk.com/users/${phoneNumber}/stats`,
+          {
+            params: {},
+            validateStatus: (status) => {
+              return true; // I'm always returning true, you may want to do it depending on the status received
+            },
+          }
+        )
+        .then((data) => {
+          resolve(data.data);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    }
+  });
+};
+
 export const getStatisticVote = () => {
   return new Promise((resolve, reject) => {
     if (_isSimulatorMode) {
@@ -320,6 +353,64 @@ export const getStatisticVote = () => {
       axios
         .get(
           "http://voter-app-dev.eu-central-1.elasticbeanstalk.com/admin/stats",
+          {
+            validateStatus: (status) => {
+              return true; // I'm always returning true, you may want to do it depending on the status received
+            },
+          }
+        )
+        .then((data) => {
+          resolve(data.data);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    }
+  });
+};
+
+export const getStatisticOfAllUsers = () => {
+  return new Promise((resolve, reject) => {
+    if (_isSimulatorMode) {
+      setTimeout(() => {
+        const stats = [
+          {
+            voted: "5",
+            not_voted: "3",
+            percentage: "62.50",
+            owner_name: "naor malka",
+          },
+          {
+            voted: "1",
+            not_voted: "0",
+            percentage: "100",
+            owner_name: "נאור מלכה המלך",
+          },
+          {
+            voted: "2",
+            not_voted: "8",
+            percentage: "20",
+            owner_name: "יואל",
+          },
+          {
+            voted: "3",
+            not_voted: "9",
+            percentage: "33.33",
+            owner_name: "אלעד",
+          },
+          {
+            voted: "1",
+            not_voted: "0",
+            percentage: "100",
+            owner_name: "דרור",
+          },
+        ];
+        resolve(stats);
+      }, 100);
+    } else {
+      axios
+        .get(
+          "http://voter-app-dev.eu-central-1.elasticbeanstalk.com/admin/user_stats",
           {
             validateStatus: (status) => {
               return true; // I'm always returning true, you may want to do it depending on the status received
