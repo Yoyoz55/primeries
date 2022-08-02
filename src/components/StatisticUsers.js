@@ -59,18 +59,15 @@ const StatisticUsers = () => {
   const [dataStatistic, setDataStatistic] = useState([]);
   console.log("in statistic users", dataStatistic);
 
-
-
-
   let labelDataSet = [];
   let percentageDataSet = [];
 
   dataStatistic.forEach((data) => {
     const percentage = parseFloat(data.percentage);
-    const name = data.owner_name
+    const name = data.owner_name;
 
     labelDataSet.push(name);
-    percentageDataSet.push(percentage)
+    percentageDataSet.push(percentage);
   });
 
   const backgroundColors = percentageDataSet.map((value) => {
@@ -80,7 +77,7 @@ const StatisticUsers = () => {
     labels: labelDataSet,
     datasets: [
       {
-        label: 'ww',
+        label: "הצבעה באחוזים",
         data: percentageDataSet,
         backgroundColor: backgroundColors,
       },

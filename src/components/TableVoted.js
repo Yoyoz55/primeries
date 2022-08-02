@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Tooltip } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { styled } from "@mui/material/styles";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -50,6 +50,12 @@ const columns = [
     headerName: "טלפון",
     width: 150,
     editable: false,
+
+    renderCell: (params) => (
+      <Tooltip title={params.row.phone} enterTouchDelay={0}>
+        <span className="table-cell-trucate">{params.row.phone} </span>
+      </Tooltip>
+    ),
   },
   {
     field: "voted",
@@ -60,8 +66,8 @@ const columns = [
       params.row.voted ? (
         <CheckCircleIcon sx={{ color: "#2ECC40" }} />
       ) : (
-          <UnpublishedIcon sx={{ color: "#FF4136" }} />
-        ),
+        <UnpublishedIcon sx={{ color: "#FF4136" }} />
+      ),
     //valueGetter: (params) => `${params.row.isVoted ? "כן" : "לא"}`,
   },
   {
@@ -96,10 +102,9 @@ export default function TableVoted() {
   useEffect(() => {
     getAllDataVoters().then((data) => {
       setRows(data);
-
     });
     const interval = setInterval(() => {
-      console.log('This will run every second!');
+      console.log("This will run every second!");
       getAllDataVoters().then((data) => {
         setRows(data);
       });

@@ -20,6 +20,32 @@ const FormControlLabelStyled = styled(FormControlLabel, {
   "&.MuiFormControlLabel-root .MuiFormControlLabel-label ": {
     fontSize: 22,
   },
+  ".MuiSwitch-switchBase": {
+    color: "#FF4136",
+    "&.Mui-checked": {
+      // Controls checked color for the thumb
+      color: "#2ECC40",
+    },
+  },
+  ".MuiSwitch-track": {
+    opacity: 0.2,
+    backgroundColor: "#FF4136",
+    ".Mui-checked.Mui-checked": {
+      opacity: 0.5,
+      backgroundColor: "#2ECC40",
+    },
+  },
+  ".MuiSwitch-root": {
+    ".MuiSwitch-track": {
+      opacity: 0.2,
+      backgroundColor: "#FF4136",
+    },
+    ".Mui-checked + .MuiSwitch-track": {
+      backgroundColor: "#2ECC40",
+      opacity: 0.2,
+    },
+  },
+  // .MuiSwitch-colorPrimary .Mui-checked"
 }));
 
 const DividerStyled = styled(Divider, { label: "cardStyled" })(({ theme }) => ({
