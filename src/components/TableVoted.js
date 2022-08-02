@@ -138,6 +138,15 @@ export default function TableVoted() {
         rowsPerPageOptions={[9]}
         checkboxSelection={false}
         disableSelectionOnClick={true}
+        onCellClick={(params, event) => {
+          if (params.field == "phone") {
+            event.defaultMuiPrevented = true;
+            console.log("on cell click", params.row.phone);
+            try {
+              window.open(`tel:${params.row.phone}`);
+            } catch {}
+          }
+        }}
       />
     </Box>
   );
