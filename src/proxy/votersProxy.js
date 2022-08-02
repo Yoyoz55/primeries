@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const _isSimulatorMode = false;
+const _isSimulatorMode = true;
 
 export const getVoterByID = (id) => {
   return new Promise((resolve, reject) => {
@@ -140,7 +140,7 @@ export const getVotersOfUsers = (phoneNumber) => {
             last_name: "אבא",
             tz: "27856087",
             address: "שפירא משה חיים 00021/0021",
-            phone: "_+972528326637",
+            phone: "0528326637",
             id: 1,
             owner_name: null,
             voted: false,

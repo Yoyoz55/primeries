@@ -35,6 +35,7 @@ const DataGridStyled = styled(DataGrid, { label: "cardStyled" })(
     // },
     "&.MuiDataGrid-root .MuiDataGrid-footerContainer": {
       direction: "rtl ",
+      display: "none",
     },
   })
 );
@@ -66,11 +67,6 @@ const columns = [
     headerName: "טלפון",
     flex: 1,
     editable: false,
-    renderCell: (params) => (
-      <Tooltip title={params.row.phone} enterTouchDelay={0}>
-        <span className="table-cell-trucate">{params.row.phone}</span>
-      </Tooltip>
-    ),
   },
   {
     disableColumnMenu: true,
@@ -178,7 +174,9 @@ export default function TableUser() {
             if (params.field == "phone") {
               event.defaultMuiPrevented = true;
               console.log("on cell click", params.row.phone);
-              //window.open("tel:900300400");
+              try {
+                window.open(`tel:${params.row.phone}`);
+              } catch {}
             }
           }}
         />
