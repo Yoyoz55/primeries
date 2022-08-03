@@ -95,7 +95,7 @@ export default function TableUser() {
     });
     const interval = setInterval(() => {
       console.log("This will run every second!");
-      getVotersOfUsers().then((data) => {
+      getVotersOfUsers(phoneUser).then((data) => {
         setRows(data);
       });
     }, 60000);
@@ -108,7 +108,7 @@ export default function TableUser() {
     });
     const interval = setInterval(() => {
       console.log("This will run every second!");
-      getVotersStats().then((data) => {
+      getVotersStats(phoneUser).then((data) => {
         setStats(data);
       });
     }, 60000);
