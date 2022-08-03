@@ -23,6 +23,10 @@ const Login = () => {
   };
 
   const handleClick = () => {
+    if (userName.length == 0) {
+      setOpen(true);
+      return;
+    }
     if (userName === "kalpi4321") {
       dispatch(setLogin({ log: true, perm: PERMISSION.KALPI }));
       navigate("/kalpi", { replace: true });

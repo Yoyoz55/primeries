@@ -24,6 +24,10 @@ const Kalpi = () => {
   const { tz, first_name, last_name, voted } = voterFoundSelector;
   console.log(voterFoundSelector);
   const handleClick = () => {
+    if (selectedId.length == 0) {
+      setOpen(true);
+      return;
+    }
     dispatch(setVoterFound({}));
     setLoading(true);
     getVoterByID(selectedId)
