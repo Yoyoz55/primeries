@@ -1,4 +1,4 @@
-import { TextField, Box, Button } from "@mui/material";
+import { TextField, Box, Button, Alert, Snackbar } from "@mui/material";
 
 import React, { useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -10,11 +10,21 @@ import Voter from "./Voter";
 const Kalpi = () => {
   const [loading, setLoading] = useState(false);
   const [selectedId, setSelectedId] = useState("");
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
   const dispatch = useDispatch();
   const voterFoundSelector = useSelector((state) => state.voters.voterFound);
   const { tz, first_name, last_name, voted } = voterFoundSelector;
   console.log(voterFoundSelector);
   const handleClick = () => {
+    dispatch(setVoterFound({}));
     setLoading(true);
     getVoterByID(selectedId)
       .then((data) => {
@@ -22,7 +32,8 @@ const Kalpi = () => {
         dispatch(setVoterFound(data));
       })
       .catch((e) => {
-        console.log("an error occured");
+        console.log("an error occured in catch");
+        setOpen(true);
       })
       .finally((e) => {
         setLoading(false);
@@ -68,6 +79,15 @@ const Kalpi = () => {
             onToggleVote={handleToggleVote}
           />
         )}
+        <Snackbar open={open} autoHideDuration={3500} onClose={handleClose}>
+          <Alert
+            onClose={handleClose}
+            severity="error"
+            sx={{ width: "100%", fontWeight: "bold" }}
+          >
+            לא קיים מצביע בעל אותה ת"ז שהוכנס
+          </Alert>
+        </Snackbar>
       </Box>
     </Box>
   );

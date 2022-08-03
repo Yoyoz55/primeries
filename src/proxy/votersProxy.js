@@ -12,6 +12,7 @@ export const getVoterByID = (id) => {
           last_name: "zeitoun",
           voted: true,
         };
+        //reject("no");
         resolve(voter);
       }, 3000);
     } else {
@@ -277,6 +278,7 @@ export const getVotersOfUsers = (phoneNumber) => {
           },
         ];
         resolve(rows);
+        //reject("no");
       }, 100);
     } else {
       axios
