@@ -15,7 +15,7 @@ import { getVotersOfUsers, getVotersStats } from "../proxy/votersProxy";
 import { useSelector, useDispatch } from "react-redux";
 
 const DataGridStyled = styled(DataGrid, { label: "cardStyled" })(
-  ({ theme }) => ({
+  ({ theme, numOfRows }) => ({
     padding: "10px",
     margin: "10px",
 
@@ -35,7 +35,7 @@ const DataGridStyled = styled(DataGrid, { label: "cardStyled" })(
     // },
     "&.MuiDataGrid-root .MuiDataGrid-footerContainer": {
       direction: "rtl ",
-      display: "none",
+      display: numOfRows < 100 ? "none" : "initial",
     },
   })
 );
@@ -130,7 +130,10 @@ export default function TableUser() {
           marginBottom: 3,
         }}
       >
-        <BorderLinearProgress variant="determinate" value={stats.percentage} />
+        <BorderLinearProgress
+          variant="determinate"
+          value={parseFloat(stats.percentage)}
+        />
         <Typography>
           {`הציביעו סה"כ ${stats.voted} מתוך ${
             parseInt(stats.not_voted) + parseInt(stats.voted)
@@ -159,6 +162,7 @@ export default function TableUser() {
         }}
       >
         <DataGridStyled
+          numOfRows={rows.length}
           sx={{
             "& .MuiDataGrid-root .MuiDataGrid-columnsContainer": {
               direction: "ltr",
@@ -166,8 +170,8 @@ export default function TableUser() {
           }}
           rows={rows}
           columns={columns}
-          // pageSize={8}
-          // rowsPerPageOptions={[8]}
+          pageSize={100}
+          rowsPerPageOptions={[100]}
           checkboxSelection={false}
           disableSelectionOnClick={true}
           onCellClick={(params, event) => {
