@@ -28,19 +28,28 @@ const Login = () => {
       return;
     }
     if (userName === "kalpi4321") {
-      dispatch(setLogin({ log: true, perm: PERMISSION.KALPI }));
+      localStorage.setItem(
+        "logged",
+        JSON.stringify({ log: true, permission: PERMISSION.KALPI })
+      );
       navigate("/kalpi", { replace: true });
     } else if (userName === "elad4321") {
-      dispatch(setLogin({ log: true, perm: PERMISSION.MANAGER }));
+      localStorage.setItem(
+        "logged",
+        JSON.stringify({ log: true, permission: PERMISSION.MANAGER })
+      );
       navigate("/kalpi", { replace: true });
     } else {
       //it's a user, check if it's user and go to table with the rows...
       getVotersOfUsers(userName)
         .then(() => {
+          localStorage.setItem(
+            "logged",
+            JSON.stringify({ log: true, permission: PERMISSION.REPONSIBLE })
+          );
+
           dispatch(
             setLogin({
-              log: true,
-              perm: PERMISSION.REPONSIBLE,
               phoneNumber: userName,
             })
           );

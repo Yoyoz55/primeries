@@ -16,7 +16,7 @@ import { Icon } from "@mui/material";
 import { Link } from "react-router-dom";
 import SVG from "react-inlinesvg";
 import { useSelector, useDispatch } from "react-redux";
-
+import { getLocalStorage } from "../proxy/storageProxy";
 import { PERMISSION } from "../Enum";
 
 const pages = ["kalpi", "Table", "Statistic", "StatisticUsers"];
@@ -29,9 +29,9 @@ const textPages = [
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const ResponsiveAppBar = () => {
-  const isLoggedIn = useSelector((state) => state.voters.isLoggedIn);
-  const permission = useSelector((state) => state.voters.permission);
-
+  const loggedStorage = getLocalStorage();
+  const permission = loggedStorage.permission;
+  console.log("permission", permission);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
