@@ -32,12 +32,14 @@ const Login = () => {
         "logged",
         JSON.stringify({ log: true, permission: PERMISSION.KALPI })
       );
+      dispatch(setLogin({ log: true, perm: PERMISSION.KALPI }));
       navigate("/kalpi", { replace: true });
     } else if (userName === "elad4321") {
       localStorage.setItem(
         "logged",
         JSON.stringify({ log: true, permission: PERMISSION.MANAGER })
       );
+      dispatch(setLogin({ log: true, perm: PERMISSION.MANAGER }));
       navigate("/kalpi", { replace: true });
     } else {
       //it's a user, check if it's user and go to table with the rows...
@@ -50,6 +52,8 @@ const Login = () => {
 
           dispatch(
             setLogin({
+              log: true,
+              perm: PERMISSION.REPONSIBLE,
               phoneNumber: userName,
             })
           );

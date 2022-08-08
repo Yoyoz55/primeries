@@ -16,7 +16,7 @@ import { Icon } from "@mui/material";
 import { Link } from "react-router-dom";
 import SVG from "react-inlinesvg";
 import { useSelector, useDispatch } from "react-redux";
-import { getLocalStorage } from "../proxy/storageProxy";
+import { setLogin } from "../redux/voters";
 import { PERMISSION } from "../Enum";
 
 const pages = ["kalpi", "Table", "Statistic", "StatisticUsers"];
@@ -29,8 +29,9 @@ const textPages = [
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const ResponsiveAppBar = () => {
-  const loggedStorage = getLocalStorage();
-  const permission = loggedStorage.permission;
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.voters.isLoggedIn);
+  const permission = useSelector((state) => state.voters.permission);
   console.log("permission", permission);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -71,6 +72,11 @@ const ResponsiveAppBar = () => {
             style={{
               textDecoration: "none",
               color: "white",
+            }}
+            onClick={() => {
+              console.log("in disconnect");
+              localStorage.clear();
+              dispatch(setLogin({ log: false, perm: 0 }));
             }}
           >
             <Typography

@@ -1,17 +1,20 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { useSelector } from "react-redux/es/exports";
 import { getLocalStorage } from "../proxy/storageProxy";
+import { useSelector, useDispatch } from "react-redux";
+import { setLogin } from "../redux/voters";
 
 const PrivateRoute = ({ permissionUser }) => {
   // const isLoggedIn = useSelector((state) => state.voters.isLoggedIn);
   // const permission = useSelector((state) => state.voters.permission);
-
+  const dispatch = useDispatch();
   const loggedStorage = getLocalStorage();
 
   const isLoggedIn = loggedStorage.log;
   const permission = loggedStorage.permission;
-
+  if (isLoggedIn) {
+    dispatch(setLogin({ log: true, perm: permission }));
+  }
   const auth = isLoggedIn; //
   const isPermitted = permissionUser.includes(permission);
 

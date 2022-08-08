@@ -24,6 +24,10 @@ export const votersSlice = createSlice({
     },
     setLogin: (state, action) => {
       const data = action.payload;
+      const isLoggedIn = data.log;
+      const permission = data.perm;
+      state.isLoggedIn = isLoggedIn;
+      state.permission = permission;
       if (data.phoneNumber) {
         state.phoneNumber = data.phoneNumber;
       }
