@@ -5,7 +5,7 @@ import { styled } from "@mui/material/styles";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import UnpublishedIcon from "@mui/icons-material/Unpublished";
 import { getAllDataVoters } from "../proxy/votersProxy";
-
+import { GridExportCsvOptions } from "@mui/x-data-grid";
 const DataGridStyled = styled(DataGrid, { label: "cardStyled" })(
   ({ theme }) => ({
     padding: "10px",
