@@ -152,6 +152,11 @@ const ResponsiveAppBar = () => {
               textDecoration: "none",
               color: "white",
             }}
+            onClick={() => {
+              console.log("in disconnect");
+              localStorage.clear();
+              dispatch(setLogin({ log: false, perm: 0 }));
+            }}
           >
             <Typography
               variant="h5"
