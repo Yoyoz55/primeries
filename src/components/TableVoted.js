@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box, Tooltip } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { styled } from "@mui/material/styles";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import UnpublishedIcon from "@mui/icons-material/Unpublished";
@@ -132,6 +132,7 @@ export default function TableVoted() {
             direction: "ltr",
           },
         }}
+        components={{ Toolbar: GridToolbar }}
         rows={rows}
         columns={columns}
         pageSize={9}
