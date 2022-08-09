@@ -9,6 +9,7 @@ import StatisticUsers from "./components/StatisticUsers";
 import TableUser from "./components/TableUser";
 import Login from "./components/Login";
 import PrivateRoute from "./components/PrivateRoute";
+import TableStatistic from "./components/TableStatistic";
 import { PERMISSION } from "./Enum";
 function App() {
   return (
@@ -58,6 +59,13 @@ function App() {
           element={<PrivateRoute permissionUser={[PERMISSION.MANAGER]} />}
         >
           <Route exact path="/StatisticUsers" element={<StatisticUsers />} />
+        </Route>
+        <Route
+          exact
+          path="/TableUsers"
+          element={<PrivateRoute permissionUser={[PERMISSION.MANAGER]} />}
+        >
+          <Route exact path="/TableUsers" element={<TableStatistic />} />
         </Route>
         <Route element={<Login />} />
         <Route path="/*" element={<Login />} />

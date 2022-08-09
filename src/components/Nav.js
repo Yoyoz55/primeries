@@ -19,12 +19,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { setLogin } from "../redux/voters";
 import { PERMISSION } from "../Enum";
 
-const pages = ["kalpi", "Table", "Statistic", "StatisticUsers"];
+const pages = ["kalpi", "Table", "Statistic", "StatisticUsers", "TableUsers"];
 const textPages = [
   "חיפוש מצביע",
-  "טבלה",
+  "טבלת מצביעים",
   "סטטיסטיקת הצבעה",
   "סטטיסטיקת אחראים",
+  "טבלת אחראים",
 ];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
