@@ -13,6 +13,7 @@ import LinearProgress, {
 
 import { getVotersOfUsers, getVotersStats } from "../proxy/votersProxy";
 import { useSelector, useDispatch } from "react-redux";
+import { getLocalStorage } from "../proxy/storageProxy";
 
 const DataGridStyled = styled(DataGrid, { label: "cardStyled" })(
   ({ theme, numOfRows }) => ({
@@ -87,8 +88,9 @@ export default function TableUser() {
   const [rows, setRows] = useState([]);
   const [stats, setStats] = useState({});
   console.log("stats", stats);
-  const phoneUser = useSelector((state) => state.voters.phoneNumber);
-
+  let phoneUser = useSelector((state) => state.voters.phoneNumber);
+  const loggedStorage = getLocalStorage();
+  phoneUser = phoneUser || loggedStorage.phoneNumber;
   useEffect(() => {
     getVotersOfUsers(phoneUser).then((data) => {
       setRows(data);

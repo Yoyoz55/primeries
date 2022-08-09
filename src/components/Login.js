@@ -47,7 +47,11 @@ const Login = () => {
         .then(() => {
           localStorage.setItem(
             "logged",
-            JSON.stringify({ log: true, permission: PERMISSION.REPONSIBLE })
+            JSON.stringify({
+              log: true,
+              permission: PERMISSION.REPONSIBLE,
+              phoneNumber: userName,
+            })
           );
 
           dispatch(
