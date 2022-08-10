@@ -1,7 +1,7 @@
 import { Pie } from "react-chartjs-2";
 import React, { useState, useEffect } from "react";
 import { Chart, ArcElement, Legend, Tooltip, Title } from "chart.js";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { getStatisticVote } from "../proxy/votersProxy"
 
 Chart.register(ArcElement, Legend, Title, Tooltip);
@@ -57,7 +57,8 @@ const StatisticVotes = () => {
           datasets: datasets,
         }}
       />
-    </Box>
+      <Typography sx={{ mt: 3 }} variant="h4">{`${percentage}% הצביעו`}</Typography>
+    </Box >
   );
 };
 
