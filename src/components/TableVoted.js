@@ -6,6 +6,9 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import UnpublishedIcon from "@mui/icons-material/Unpublished";
 import { getAllDataVoters } from "../proxy/votersProxy";
 import { GridExportCsvOptions } from "@mui/x-data-grid";
+import readXlsxFile from "read-excel-file";
+import { setVoteByID } from "../proxy/votersProxy";
+
 const DataGridStyled = styled(DataGrid, { label: "cardStyled" })(
   ({ theme }) => ({
     padding: "10px",
@@ -111,7 +114,24 @@ export default function TableVoted() {
     }, 60000);
     return () => clearInterval(interval);
   }, []);
+  useEffect(() => {
+    const input = document.getElementById("inputXL");
 
+    input.addEventListener("change", () => {
+      readXlsxFile(input.files[0]).then((rows) => {
+        console.log("rows", rows);
+        rows.forEach((row) => {
+          setVoteByID(row[0], true)
+            .then(() => {
+              console.log(row[0], "voted");
+            })
+            .catch((e) => {
+              console.log("doesnt success");
+            });
+        });
+      });
+    });
+  }, []);
   return (
     <Box
       sx={{
@@ -126,6 +146,7 @@ export default function TableVoted() {
         m: "auto",
       }}
     >
+      <input type="file" id="inputXL" />
       <DataGridStyled
         sx={{
           "& .MuiDataGrid-root .MuiDataGrid-columnsContainer": {
