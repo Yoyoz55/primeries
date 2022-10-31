@@ -9,7 +9,9 @@ import Voter from "./Voter";
 
 const Kalpi = () => {
   const [loading, setLoading] = useState(false);
+  const [selectedKalpi, setSelectedKalpi] = useState("");
   const [selectedId, setSelectedId] = useState("");
+
   const [open, setOpen] = React.useState(false);
 
   const handleClose = (event, reason) => {
@@ -24,13 +26,13 @@ const Kalpi = () => {
   const { tz, first_name, last_name, voted } = voterFoundSelector;
   console.log(voterFoundSelector);
   const handleClick = () => {
-    if (selectedId.length == 0) {
+    if (selectedKalpi.length == 0) {
       setOpen(true);
       return;
     }
     dispatch(setVoterFound({}));
     setLoading(true);
-    getVoterByID(selectedId)
+    getVoterByID(selectedKalpi + '_' + selectedId)
       .then((data) => {
         console.log("here", data);
         dispatch(setVoterFound(data));
@@ -52,21 +54,43 @@ const Kalpi = () => {
       }
     });
   };
+  const handleKalpiChange = (e) => {
+    const kalpi = e.target.value;
+    setSelectedKalpi(kalpi);
+  };
   const handleIdChange = (e) => {
     const id = e.target.value;
     setSelectedId(id);
   };
+
   return (
     <Box>
-      <Box>
+      <Box style={{ display: 'flex', flexDirection: 'column', margin: 'auto' }} sx={{
+        width: {
+          xs: "90%", // theme.breakpoints.up('xs')
+          sm: "60%", // theme.breakpoints.up('sm')
+          md: "50%", // theme.breakpoints.up('md')
+          lg: "30%", // theme.breakpoints.up('lg')
+          xl: "25%", // theme.breakpoints.up('xl')
+        },
+      }}>
         <TextField
           size="small"
           id="outlined-basic"
-          label='ת"ז'
+          label='מספר קלפי'
+          variant="outlined"
+          value={selectedKalpi}
+          onChange={handleKalpiChange}
+          style={{ marginLeft: "10px", marginBottom: "15px" }}
+        />
+        <TextField
+          size="small"
+          id="outlined-basic"
+          label='מספר בוחר'
           variant="outlined"
           value={selectedId}
           onChange={handleIdChange}
-          style={{ marginLeft: "10px", marginBottom: "5px" }}
+          style={{ marginLeft: "10px", marginBottom: "15px" }}
         />
         <Button onClick={handleClick} variant="contained" color="primary">
           חיפוש
@@ -89,7 +113,7 @@ const Kalpi = () => {
             severity="error"
             sx={{ width: "100%", fontWeight: "bold" }}
           >
-            לא קיים מצביע בעל אותה ת"ז שהוכנס
+            לא קיים מצביע כזה
           </Alert>
         </Snackbar>
       </Box>
