@@ -27,7 +27,7 @@ const Login = () => {
       setOpen(true);
       return;
     }
-    if (userName === "kalpi4321") {
+    if (userName === "102030") {
       localStorage.setItem(
         "logged",
         JSON.stringify({ log: true, permission: PERMISSION.KALPI })

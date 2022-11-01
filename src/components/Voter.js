@@ -87,9 +87,9 @@ const Voter = (props) => {
         <DividerStyled />
         <Box>
           <Typography variant="h6" color="primary">
-            ת"ז
+            מספר בוחר
           </Typography>
-          <Typography>{props.tz}</Typography>
+          <Typography>{props.tz.split("_").reverse().join("_")}</Typography>
         </Box>
 
         <DividerStyled />
