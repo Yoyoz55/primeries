@@ -34,7 +34,7 @@ const Login = () => {
       );
       dispatch(setLogin({ log: true, perm: PERMISSION.KALPI }));
       navigate("/kalpi", { replace: true });
-    } else if (userName === "elad4321") {
+    } else if (userName === "elad4321" || userName === "Elad4321") {
       localStorage.setItem(
         "logged",
         JSON.stringify({ log: true, permission: PERMISSION.MANAGER })
