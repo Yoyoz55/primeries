@@ -28,7 +28,7 @@ const Kalpi = () => {
   const handleClick = () => {
     dispatch(setVoterFound({}));
     setLoading(true);
-    const id = selectedId ?? selectedKalpi
+    const id = selectedId || selectedKalpi
     getVoterByID(id)
       .then((data) => {
         console.log("here", data);
