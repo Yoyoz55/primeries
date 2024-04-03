@@ -82,6 +82,13 @@ const columns = [
         <UnpublishedIcon sx={{ color: "#FF4136" }} />
       ),
   },
+  {
+    disableColumnMenu: true,
+    field: "address",
+    headerName: "יחידה",
+    flex: 1,
+    editable: false,
+  },
 ];
 
 export default function TableUser() {
@@ -137,9 +144,8 @@ export default function TableUser() {
           value={parseFloat(stats.percentage)}
         />
         <Typography>
-          {`הציביעו סה"כ ${stats.voted} מתוך ${
-            parseInt(stats.not_voted) + parseInt(stats.voted)
-          }`}
+          {`הציביעו סה"כ ${stats.voted} מתוך ${parseInt(stats.not_voted) + parseInt(stats.voted)
+            }`}
         </Typography>
       </Box>
 
@@ -182,7 +188,7 @@ export default function TableUser() {
               console.log("on cell click", params.row.phone);
               try {
                 window.open(`tel:${params.row.phone}`);
-              } catch {}
+              } catch { }
             }
           }}
         />

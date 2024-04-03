@@ -81,15 +81,7 @@ const Kalpi = () => {
           onChange={handleIdChange}
           style={{ marginLeft: "10px", marginBottom: "15px" }}
         />
-        <TextField
-          size="small"
-          id="outlined-basic"
-          label='שם בוחר'
-          variant="outlined"
-          value={selectedKalpi}
-          onChange={handleKalpiChange}
-          style={{ marginLeft: "10px", marginBottom: "15px" }}
-        />
+
         <Button onClick={handleClick} variant="contained" color="primary">
           חיפוש
         </Button>

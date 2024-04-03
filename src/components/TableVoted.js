@@ -79,6 +79,13 @@ const columns = [
     width: 150,
     editable: false,
   },
+  {
+    field: "address",
+    headerName: "יחידה",
+    width: 150,
+
+    editable: false,
+  },
   //   {
   //     field: "fullName",
   //     headerName: "Full name",
@@ -139,9 +146,9 @@ export default function TableVoted() {
         width: {
           xs: "100%", // theme.breakpoints.up('xs')
           sm: "100%", // theme.breakpoints.up('sm')
-          md: "80%", // theme.breakpoints.up('md')
-          lg: "65%", // theme.breakpoints.up('lg')
-          xl: "65%", // theme.breakpoints.up('xl')
+          md: "90%", // theme.breakpoints.up('md')
+          lg: "80%", // theme.breakpoints.up('lg')
+          xl: "80%", // theme.breakpoints.up('xl')
         },
         m: "auto",
       }}
@@ -166,7 +173,7 @@ export default function TableVoted() {
             console.log("on cell click", params.row.phone);
             try {
               window.open(`tel:${params.row.phone}`);
-            } catch {}
+            } catch { }
           }
         }}
       />
