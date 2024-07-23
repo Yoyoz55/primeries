@@ -75,7 +75,7 @@ const Kalpi = () => {
         <TextField
           size="small"
           id="outlined-basic"
-          label='תעודת זהות'
+          label='מספר בוחר'
           variant="outlined"
           value={selectedId}
           onChange={handleIdChange}
